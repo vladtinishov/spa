@@ -14,15 +14,19 @@ class Patients extends CI_Controller{
     }
 
     public function post(){
-        $this->patients_model->post("INSERT INTO patients (name, lastname, birthday) 
-                                    VALUES ('d', 'da', '2021-03-02')");
+        $id = $_GET['id'];
+        $name = $_GET['name'];
+        $lastname = $_GET['lastname'];
+        $this->patients_model->post("INSERT INTO patients (name, lastname) 
+                                    VALUES ('$name', '$lastname')");
     }
 
     public function put(){
         $id = $_GET['id'];
-        $this->patients_model->put("UPDATE patients SET name='hello',
-                                                        lastname='fworld',
-                                                        birthday='2021-03-02' 
+        $name = $_GET['name'];
+        $lastname = $_GET['lastname'];
+        $this->patients_model->put("UPDATE patients SET name='$name',
+                                                        lastname='$lastname'
                                                         WHERE id=$id");
     }
 
