@@ -12,7 +12,6 @@ class Rest{
         else{
             $result = $this->base->query($sql);
             return $result;
-            
         }
     }
 }

@@ -14,7 +14,6 @@ class Patients extends CI_Controller{
     }
 
     public function post(){
-        $id = $_GET['id'];
         $name = $_GET['name'];
         $lastname = $_GET['lastname'];
         $this->patients_model->post("INSERT INTO patients (name, lastname) 

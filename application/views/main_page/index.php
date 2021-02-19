@@ -27,6 +27,8 @@
 
             <div class="insert" v-if='ins'>
                 <form>
+                <br>
+                <br>
                     <div class="form-group">
                         <label for="name">Имя</label>
                         <input type="text" class="form-control" id="iname" placeholder="Введите имя">
@@ -68,6 +70,7 @@
                 </table>
             </div>
             <div class="update" v-if='upd'>
+            <br><br>
                 <form>
                     <div class="form-group">
                         <label for="name">Имя</label>
@@ -118,7 +121,6 @@
                             })
                     })
                     .catch((error) => console.log(error.response.data));
-                    location.reload(); // перезагружаем страницу
             },
             get_form: function (id){
                 this.upd = !this.upd;
@@ -137,7 +139,6 @@
                             })
                     })
                     .catch((error) => console.log(error.response.data));
-                    location.reload(); // перезагружаем страницу
             },
             get_ins: function(){
                 this.ins = !this.ins;
@@ -151,11 +152,11 @@
                         axios.get('/patients/get')
                             .then(function(response){ 
                                 arr = response.data;
-                                console.log('hello ' + arr);
+                                console.log( arr);
                             })
                     })
                     .catch((error) => console.log(error.response.data));
-                    location.reload(); // перезагружаем страницу
+                    
             }
         },
         
