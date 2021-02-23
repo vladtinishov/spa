@@ -19,8 +19,8 @@ let app = new Vue({
         },
 
         signIn: function(){
-            data = {login: 'admin', password: 'password'}
-            axios.post('../users/getusers', JSON.stringify(data))
+            data = {login: 'admin', password: 'admin'}
+            axios.post('/users/getusers', data)
               .then(response => console.table(response.data)
               );
         },
