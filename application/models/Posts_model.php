@@ -15,7 +15,7 @@ class Posts_model extends CI_Model{
     }
     public function getPosts(){
         $result = $this->db->get('posts');
-        return $result->result_array();
+        echo json_encode($result->result());
     }
     
 }
