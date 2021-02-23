@@ -1,19 +1,27 @@
+$(document).ready(function() {
+    $('.nav-link-collapse').on('click', function() {
+      $('.nav-link-collapse').not(this).removeClass('nav-link-show');
+      $(this).toggleClass('nav-link-show');
+    });
+  });
+
 let app = new Vue({
     el: '#app',
     data:{
         posts_data: [],
+        welcome: 'd',
     },
     mounted(){
-        axios.get('/posts/getPosts')
-            .then(function (response) {
-                console.group('Запрос данных о постах');
-                console.table(response.data);
-                console.groupEnd()
-        })
+        this.posts_data = axios.get('/posts/getPosts')
+            .then(response => this.posts_data = response.data);
     },
     methods:{
-        thisCheck: function(){
-            
+        getData: function(){
+            console.group('Данные из таблицы Posts')
+            console.table(this.posts_data);
+            console.groupEnd();
+
+            this.welcome = this.posts_data[0].post_id
         }
     }
 })
