@@ -31,8 +31,10 @@
         <input type="text" name="login" id="login">
         <input type="text" name="password" id="password">
         <button @click="sendAutorizationData">Send</button>
+        <p>Не зарегистрированы? Зарегистрироваться</p>
         <p v-show="form.incorrect_data" style="color: red">Некоректные данные</p>
     </div>
+
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
