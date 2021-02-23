@@ -24,7 +24,7 @@
     -moz-transition: left 0.3s;
     transition: left 0.3s;
     /* определяем цвет фона панели */
-    background: #16a085;
+    background: #165da0;
     /* поверх других элементов */
     z-index: 2000;
 }
@@ -213,7 +213,7 @@ body {
     -webkit-transition: opacity 0.8s, -webkit-transform 0.8s;
 }
 
-.nav h2 a {
+.nav h2 a, li {
     color: #dadada;
     text-decoration: none;
     text-transform: uppercase;
@@ -303,7 +303,7 @@ body {
  * оформление ссылок пунктов меню
  */
 
-.nav > ul > li > a {
+.nav > ul > li {
     display: inline-block;
     position: relative;
     padding: 0;
@@ -324,8 +324,8 @@ body {
  * состояние ссылок меню при наведении
  */
 
-.nav > ul > li > a:hover,
-.nav > ul > li > a:focus {
+.nav > ul > li:hover,
+.nav > ul > li:focus {
     color: white;
     padding-left: 15px;
 }
@@ -335,7 +335,7 @@ body {
  * линия подчеркивания ссылок меню
  */
 
-.nav > ul > li > a:before {
+.nav > ul > li:before {
     content: '';
     display: block;
     position: absolute;
@@ -347,7 +347,7 @@ body {
     transition: width 0s ease;
 }
 
-.nav > ul > li > a:after {
+.nav > ul > li:after {
     content: '';
     display: block;
     position: absolute;
@@ -366,14 +366,14 @@ body {
  * ссылок при наведении
  */
 
-.nav > ul > li > a:hover:before {
+.nav > ul > li:hover:before {
     width: 0%;
     background: #3bc1a0;
     -webkit-transition: width .5s ease;
     transition: width .5s ease;
 }
 
-.nav > ul > li > a:hover:after {
+.nav > ul > li:hover:after {
     width: 0%;
     background: transparent;
     -webkit-transition: width 0s ease;

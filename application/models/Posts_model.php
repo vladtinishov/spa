@@ -18,4 +18,5 @@ class Posts_model extends CI_Model{
         echo json_encode($result->result());
     }
     
+    
 }

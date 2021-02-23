@@ -1,12 +1,6 @@
-$(document).ready(function() {
-    $('.nav-link-collapse').on('click', function() {
-      $('.nav-link-collapse').not(this).removeClass('nav-link-show');
-      $(this).toggleClass('nav-link-show');
-    });
-  });
-
 let app = new Vue({
     el: '#app',
+    
     data:{
         posts_data: [],
         welcome: 'd',
@@ -22,7 +16,14 @@ let app = new Vue({
             console.groupEnd();
 
             this.welcome = this.posts_data[0].post_id
-        }
+        },
+
+        signIn: function(){
+            data = {login: 'admin', password: 'password'}
+            axios.post('../users/getusers', JSON.stringify(data))
+              .then(response => console.table(response.data)
+              );
+        },
     }
 })
 
