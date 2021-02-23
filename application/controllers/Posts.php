@@ -6,7 +6,7 @@ class Posts extends CI_Controller{
         $this->load->model('posts_model');
     }
     public function getPosts(){
-        $data['data'] = $this->posts_model->getPost();
+        $data['data'] = $this->posts_model->getPosts();
         $this->load->view('index', $data);
     }
 }
