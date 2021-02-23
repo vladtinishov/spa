@@ -12,20 +12,27 @@
 
     <div id="app">
 
-
-
     <input type="checkbox" id="nav-toggle" hidden>
     <nav class="nav">
-
         <label for="nav-toggle" class="nav-toggle" onclick></label>
         <h2 class="logo"> 
             <a href="#">BLOG)</a> 
         </h2>
         <ul>
-            <li @click='signIn'>Подписчики</li>
+            <li v-if="form.form_getter" @click="getSignUpForm">Войти</li>
+            <li v-else @click="getSignUpForm">{{user_data.user_name}}</li>
+            <li>Подписчики</li>
             <li>Лента</li>
         </ul>
     </nav>
+
+    <div v-show="form.form_show" class="signUpForm">
+        form
+        <input type="text" name="login" id="login">
+        <input type="text" name="password" id="password">
+        <button @click="sendAutorizationData">Send</button>
+        <p v-show="form.incorrect_data" style="color: red">Некоректные данные</p>
+    </div>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
