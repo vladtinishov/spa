@@ -1,3 +1,6 @@
+body{
+    background: rgb(65, 67, 75);
+}
 /* Форма входа */
 .signUpForm{
     padding: 20px;
@@ -13,9 +16,8 @@
 /* посты */
 .post{
     border: 1px solid black;
-    border-radius: 15px;
     padding: 15px;
     margin: 15px 5px;
-    /* background: rgb(255, 255, 255); */
-    /* color: white; */
+    background: #343a40!important;
+    color: white;
 }
