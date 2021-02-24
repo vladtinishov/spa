@@ -19,4 +19,9 @@ class Posts extends CI_Controller{
         $content = $_POST['content'];
         $this->posts_model->setPosts($user_id, $content);
     }
+    public function get_likes(){
+        $_POST = json_decode(file_get_contents('php://input'), true);
+        $user_id = $_POST['user_id'];
+        $this->posts_model->getLikes($user_id);
+    }
 }

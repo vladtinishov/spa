@@ -15,6 +15,7 @@ let app = new Vue({
         posts_data: {
             posts_show: false,
             posts: '',
+            posts_likes: '',
         }
     },
     methods:{
@@ -61,7 +62,11 @@ let app = new Vue({
                         this.form.incorrect_data = true;
                     }
                   } 
-              );
+              )
+            .then(
+                axios.post('/posts/get_likes', {'user_id':1})
+                .then(data => {this.posts_data.posts_likes = data.data; console.log(this.posts_data.posts_likes)})
+            );
         },
         setPosts: function(){
 

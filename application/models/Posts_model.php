@@ -15,7 +15,7 @@ class Posts_model extends CI_Model{
     }
     public function getPosts($id){
         $result = $this->db->query("SELECT 
-                                    post_date, content, users.user_name 
+                                    post_id, post_date, content, users.user_name 
                                     FROM posts 
 
                                     INNER JOIN followers 
@@ -42,6 +42,14 @@ class Posts_model extends CI_Model{
                                         )
                                     ");
         echo var_dump($result);
+    }
+    public function getLikes($id){
+        $result = $this->db->query("SELECT post_id FROM likes WHERE user_id = $id");
+        $res = [];
+        foreach($result->result() as $key => $data){
+             array_push($res, $data->post_id);
+        }
+        echo json_encode($res);
     }
     
 }

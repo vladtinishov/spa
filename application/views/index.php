@@ -56,6 +56,8 @@
         <div class="post" v-for="post in posts_data.posts">
             <span class="badge badge-secondary">{{post.user_name}} | {{post.post_date}}</span>
             <p>{{post.content}}</p>
+            <span v-if="posts_data.posts_likes.includes(post.post_id)">Понравилось</span>
+            <span v-else>Уже не понравилось</span>
         </div>
     </div>
 
