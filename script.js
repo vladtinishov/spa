@@ -10,6 +10,10 @@ let app = new Vue({
         },
         user_data: {
             user_name: '',
+        },
+        posts_data: {
+            posts_show: false,
+            posts: '',
         }
     },
     methods:{
@@ -28,18 +32,24 @@ let app = new Vue({
             axios.post('/users/getusers', data)
               .then(response => {
                     if(response.data != null){
+
                         console.group('Ответ из сервера на запрос о пользователе по введённым данным');
                         console.table(response.data);
                         console.groupEnd();
+
                         this.user_data.user_name = response.data.user_name;
                         this.form.form_show = false;
                         this.form.form_getter = false;
+
+                        this.posts_data.posts_show = true;
 
                         axios.get('/posts/get_posts', {params: {'user_id':response.data.user_id}})
                         .then(posts => {
                             console.group('Все посты этого пользователя');
                             console.table(posts.data);
                             console.groupEnd();
+
+                            this.posts_data.posts = posts.data;
                         });
                     }
                     else{

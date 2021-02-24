@@ -12,18 +12,21 @@
 
     <div id="app">
 
-    <input type="checkbox" id="nav-toggle" hidden>
-    <nav class="nav">
-        <label for="nav-toggle" class="nav-toggle" onclick></label>
-        <h2 class="logo"> 
-            <a href="#">BLOG)</a> 
-        </h2>
-        <ul>
-            <li v-if="form.form_getter" @click="getSignUpForm">Войти</li>
-            <li v-else @click="getSignUpForm">{{user_data.user_name}}</li>
-            <li>Подписчики</li>
-            <li>Лента</li>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">BLOG)</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <span class="nav-link" v-if="form.form_getter" @click="getSignUpForm">Войти</span>
+                <span class="nav-link" v-else @click="getSignUpForm">{{user_data.user_name}}</span>
+            </li>
+            <li class="nav-item">
+                <span class="nav-link">Подписчики</span>
+            </li>
         </ul>
+        <form class="form-inline" action="/action_page.php">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search">
+        <button class="btn btn-success" type="submit">Search</button>
+        </form>
     </nav>
 
     <div v-show="form.form_show" class="signUpForm">
@@ -41,6 +44,13 @@
             <p>Не зарегистрированы? Зарегистрироваться</p>
             <p v-show="form.incorrect_data" style="color: red">Некоректные данные</p>
         </form>
+    </div>
+
+    <div v-show="posts_data.posts_show" class="container postsShow">
+        <div class="post" v-for="post in posts_data.posts">
+            <span class="badge badge-secondary">{{post.user_name}}</span>
+            <p>{{post.content}}</p>
+        </div>
     </div>
 
 
