@@ -17,7 +17,7 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <span class="nav-link" v-if="form.form_getter" @click="getSignUpForm">Войти</span>
-                <span class="nav-link" v-else @click="getSignUpForm">{{user_data.user_name}}</span>
+                <span class="nav-link" v-else >{{user_data.user_name}}</span>
             </li>
             <li class="nav-item">
                 <span class="nav-link">Подписчики</span>
@@ -48,7 +48,7 @@
 
     <div v-show="posts_data.posts_show" class="container postsShow">
         <div class="post" v-for="post in posts_data.posts">
-            <span class="badge badge-secondary">{{post.user_name}}</span>
+            <span class="badge badge-secondary">{{post.user_name}} | {{post.post_date}}</span>
             <p>{{post.content}}</p>
         </div>
     </div>

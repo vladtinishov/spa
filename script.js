@@ -43,7 +43,7 @@ let app = new Vue({
 
                         this.posts_data.posts_show = true;
 
-                        axios.get('/posts/get_posts', {params: {'user_id':response.data.user_id}})
+                        axios.post('/posts/get_posts', {'user_id':response.data.user_id})
                         .then(posts => {
                             console.group('Все посты этого пользователя');
                             console.table(posts.data);

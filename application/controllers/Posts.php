@@ -9,6 +9,8 @@ class Posts extends CI_Controller{
         $this->load->view('index');
     }
     public function get_posts(){
-        $this->posts_model->getPosts();
+        $_POST = json_decode(file_get_contents('php://input'), true);
+        $user_id = intval($_POST['user_id']);
+        $this->posts_model->getPosts($user_id);
     }
 }

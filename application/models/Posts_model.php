@@ -13,15 +13,14 @@ class Posts_model extends CI_Model{
         );
         $this->db->insert('posts', $data);
     }
-    public function getPosts(){
-        $user_id = $_GET['user_id'];
+    public function getPosts($id){
         $result = $this->db->query("SELECT 
-                                    content, users.user_name 
+                                    post_date, content, users.user_name 
                                     FROM posts 
 
                                     INNER JOIN followers 
                                     ON 
-                                    followers.user_id = 1 
+                                    followers.user_id = $id
                                     AND 
                                     posts.user_id = followers.follower_id 
         
