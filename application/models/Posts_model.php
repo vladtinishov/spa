@@ -45,11 +45,21 @@ class Posts_model extends CI_Model{
     }
     public function getLikes($id){
         $result = $this->db->query("SELECT post_id FROM likes WHERE user_id = $id");
-        $res = [];
+        $result_array = [];
         foreach($result->result() as $key => $data){
-             array_push($res, $data->post_id);
+             array_push($result_array, $data->post_id);
         }
-        echo json_encode($res);
+        echo json_encode($result_array);
     }
-    
+    public function setLike($user_id, $post_id){
+        $result = $this->db->query("INSERT INTO likes 
+                                    VALUES (
+                                        $user_id,
+                                        '$post_id'
+                                        )");
+    }
+    public function deleteLike($user_id, $post_id){
+        $result = $this->db->query("DELETE FROM likes WHERE 
+                                    user_id=$user_id AND post_id='$post_id'");
+    }
 }

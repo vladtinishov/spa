@@ -80,6 +80,29 @@ let app = new Vue({
                             this.posts_data.posts = posts.data;
                         });
             })
+        },
+        setLikes: function(post_id){
+            axios.post('/posts/set_like',{
+                'user_id':this.user_data.user_id,
+                'post_id':post_id
+            }).then(() =>{
+                axios.post('/posts/get_likes', {'user_id':this.user_data.user_id})
+                        .then(posts => {
+                            this.posts_data.posts_likes = posts.data;
+                        })
+                });
+        },
+        deleteLikes: function(post_id){
+            axios.post('/posts/delete_like',{
+                'user_id':this.user_data.user_id,
+                'post_id':post_id
+            }).then(() =>{
+                axios.post('/posts/get_likes', {'user_id':this.user_data.user_id})
+                        .then(posts => {
+                            this.posts_data.posts_likes = posts.data;
+                        })
+                }
+            )
         }
         
     }
