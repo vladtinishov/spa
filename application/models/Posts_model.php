@@ -27,9 +27,21 @@ class Posts_model extends CI_Model{
                                     INNER JOIN users 
                                     ON 
                                     posts.user_id = users.user_id
+                                    ORDER BY post_date DESC
                                     ");
         echo json_encode($result->result());
     }
-    
+    public function setPosts($id, $content){
+        $date = date("Y-m-d H:i:s");
+        $result = $this->db->query("INSERT INTO posts 
+                                    VALUES(
+                                        NULL,
+                                        $id,
+                                        '$content',
+                                        '$date'
+                                        )
+                                    ");
+        echo var_dump($result);
+    }
     
 }

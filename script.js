@@ -10,6 +10,7 @@ let app = new Vue({
         },
         user_data: {
             user_name: '',
+            user_id: '',
         },
         posts_data: {
             posts_show: false,
@@ -38,6 +39,7 @@ let app = new Vue({
                         console.groupEnd();
 
                         this.user_data.user_name = response.data.user_name;
+                        this.user_data.user_id = response.data.user_id;
                         this.form.form_show = false;
                         this.form.form_getter = false;
 
@@ -61,6 +63,19 @@ let app = new Vue({
                   } 
               );
         },
+        setPosts: function(){
+
+            axios.post('/posts/set_posts', 
+                        {'user_id': this.user_data.user_id, 
+                        'content': document.getElementById('createText').value
+                        })
+            .then(data => {
+                axios.post('/posts/get_posts', {'user_id':this.user_data.user_id})
+                        .then(posts => {
+                            this.posts_data.posts = posts.data;
+                        });
+            })
+        }
         
     }
 })

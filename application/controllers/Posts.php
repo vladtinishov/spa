@@ -13,4 +13,10 @@ class Posts extends CI_Controller{
         $user_id = intval($_POST['user_id']);
         $this->posts_model->getPosts($user_id);
     }
+    public function set_posts(){
+        $_POST = json_decode(file_get_contents('php://input'), true);
+        $user_id = intval($_POST['user_id']);
+        $content = $_POST['content'];
+        $this->posts_model->setPosts($user_id, $content);
+    }
 }

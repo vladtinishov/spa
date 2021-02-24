@@ -15,10 +15,17 @@ body{
 
 
 /* посты */
-.post{
+.post, .createPost{
     border: 1px solid black;
     padding: 15px;
     margin: 15px 5px;
     background: #343a40!important;
     color: white;
+}
+.postTextInput{
+    margin-top: 10px;
+}
+
+.btn-primary{
+    background: rgb(65, 67, 75);
 }

@@ -47,6 +47,12 @@
     </div>
 
     <div v-show="posts_data.posts_show" class="container postsShow">
+        <div class="createPost">
+            Добавить запись<br>
+            <input id="createText" width="100%" type="text" class="postTextInput form-control" placeholder="Текст">
+            <br>
+            <button @click="setPosts" class="btn btn-primary">Создать запись</button>
+        </div>
         <div class="post" v-for="post in posts_data.posts">
             <span class="badge badge-secondary">{{post.user_name}} | {{post.post_date}}</span>
             <p>{{post.content}}</p>
