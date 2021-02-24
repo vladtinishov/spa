@@ -11,6 +11,6 @@ class Users extends CI_Controller{
         $data['login'] = $_POST['login'];
         $data['password'] = $_POST['password'];
         $this->users_model->getUsers($data);
-        
+
     }
 }

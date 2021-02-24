@@ -19,6 +19,7 @@
     left: -320px;
     /* внутренние отступы */
     padding: 15px 20px;
+    padding-top: 0;
     /* плавный переход смещения панели */
     -webkit-transition: left 0.3s;
     -moz-transition: left 0.3s;
@@ -41,7 +42,6 @@
     /* относительно левого края панели */
     left: 320px;
     /* отступ от верхнего края панели */
-    top: 1em;
     /* внутренние отступы */
     padding: 0.5em;
     /* определяем цвет фона переключателя
@@ -102,7 +102,7 @@
 [id='nav-toggle']:checked ~ .nav > .nav-toggle {
     left: auto;
     right: 2px;
-    top: 1em;
+    /* top: 1em; */
 }
 
 
@@ -408,3 +408,16 @@ body {
     transition: opacity .5s, visibility .5s;
 }
 */
+
+
+
+
+/* Форма входа */
+.signUpForm{
+    padding: 20px;
+    margin-top: 40px;
+    width: 50%;
+}
+@media screen and (max-width: 700px) {
+    .signUpForm {width: 100%;}
+   }

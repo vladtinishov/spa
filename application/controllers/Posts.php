@@ -8,7 +8,7 @@ class Posts extends CI_Controller{
     public function index(){
         $this->load->view('index');
     }
-    public function getPosts(){
+    public function get_posts(){
         $this->posts_model->getPosts();
     }
 }

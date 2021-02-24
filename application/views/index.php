@@ -27,12 +27,20 @@
     </nav>
 
     <div v-show="form.form_show" class="signUpForm">
-        form
-        <input type="text" name="login" id="login">
-        <input type="text" name="password" id="password">
-        <button @click="sendAutorizationData">Send</button>
-        <p>Не зарегистрированы? Зарегистрироваться</p>
-        <p v-show="form.incorrect_data" style="color: red">Некоректные данные</p>
+        <h3>Форма входа</h3>
+        <form>
+            <div class="form-group">
+                <label for="login">Логин</label>
+                <input type="text" class="form-control" id="login" placeholder="логин">
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input type="password" class="form-control" id="password" placeholder="Пароль">
+            </div>
+            <p @click="sendAutorizationData" class="btn btn-primary">Ввести</p>
+            <p>Не зарегистрированы? Зарегистрироваться</p>
+            <p v-show="form.incorrect_data" style="color: red">Некоректные данные</p>
+        </form>
     </div>
 
 

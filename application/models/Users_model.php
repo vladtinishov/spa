@@ -14,6 +14,7 @@ class Users_model extends CI_Model{
                                     AND 
                                     user_password = '$password'
                                     ");
-        echo json_encode($result->result());
+        $data = $result->row_array();
+        echo json_encode($data);
     }
 }
