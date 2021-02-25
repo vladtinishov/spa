@@ -20,12 +20,13 @@
                 <span class="nav-link" v-if="!this.form.form_show" >{{user_data.user_name}}</span>
             </li>
             <li class="nav-item">
-                <span class="nav-link">Подписчики</span>
+                <span class="nav-link"><i class="fa fa-user-o" aria-hidden="true"></i>
+                 {{user_data.followers_count}}</span>
             </li>
         </ul>
         <form class="form-inline" action="/action_page.php">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search">
-        <button class="btn btn-success" type="submit">Search</button>
+        <input id="searched_user_name" class="form-control mr-sm-2" type="text" placeholder="Введите имя">
+        <p @click="getSearchedUsers" class="btn btn-success">Искать</p>
         </form>
     </nav>
 

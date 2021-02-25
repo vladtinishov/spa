@@ -61,7 +61,7 @@ let app = new Vue({
                                 data.data; 
                         });
                         axios.post('/users/get_followers', {'user_id':response.data.user_id})
-                            .then(data => {console.log(data.data)}
+                            .then(data => {this.user_data.followers_count = data.data[0].count_users}
                         );
                     }
                     else{
@@ -171,8 +171,13 @@ let app = new Vue({
                     if(data.data) this.form.okey = true
                 })
             }
-        }
+        },
         
+        getSearchedUsers: function(){
+            user_name = document.getElementById('searched_user_name').value;
+            axios.post('/users/get_searched_users', {'user_name':user_name})
+            .then(data => console.log(data.data));
+        }
     }
 })
 
