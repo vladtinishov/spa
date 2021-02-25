@@ -10,12 +10,13 @@ class Posts_model extends CI_Model{
             'user_id'=> $_POST['user_id'],
             'title'=>  $_POST['title'],
             'content'=>  $_POST['content'],
+            'likes' => 0
         );
         $this->db->insert('posts', $data);
     }
     public function getPosts($id){
         $result = $this->db->query("SELECT 
-                                    post_id, post_date, content, users.user_name 
+                                    likes, post_id, post_date, content, users.user_name 
                                     FROM posts 
 
                                     INNER JOIN followers 
@@ -38,7 +39,8 @@ class Posts_model extends CI_Model{
                                         NULL,
                                         $id,
                                         '$content',
-                                        '$date'
+                                        '$date',
+                                        0
                                         )
                                     ");
         echo var_dump($result);
@@ -52,14 +54,21 @@ class Posts_model extends CI_Model{
         echo json_encode($result_array);
     }
     public function setLike($user_id, $post_id){
-        $result = $this->db->query("INSERT INTO likes 
+        $this->db->query("INSERT INTO likes 
                                     VALUES (
                                         $user_id,
-                                        '$post_id'
+                                        $post_id
                                         )");
+        $this->db->query("UPDATE posts 
+                        SET likes = likes + 1 
+                        WHERE post_id = $post_id");
     }
     public function deleteLike($user_id, $post_id){
-        $result = $this->db->query("DELETE FROM likes WHERE 
-                                    user_id=$user_id AND post_id='$post_id'");
+        $this->db->query("DELETE FROM likes WHERE 
+                                    user_id=$user_id AND post_id=$post_id
+                                    ");
+        $this->db->query("UPDATE posts 
+                        SET likes = likes - 1 
+                        WHERE post_id = $post_id");
     }
 }

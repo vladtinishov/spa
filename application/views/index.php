@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>BLOG)</title>
 </head>
 <body>
@@ -56,8 +57,14 @@
         <div class="post" v-for="post in posts_data.posts">
             <span class="badge badge-secondary">{{post.user_name}} | {{post.post_date}}</span>
             <p>{{post.content}}</p>
-            <span @click="deleteLikes(post.post_id)" v-if="posts_data.posts_likes.includes(post.post_id)">уже не понравилось</span>
-            <span @click="setLikes(post.post_id)" v-else>понравилось</span>
+            <span 
+                @click="deleteLikes(post.post_id)" 
+                v-if="posts_data.posts_likes.includes(post.post_id)"
+                style="color: red"><i class="fa fa-heart" aria-hidden="true"></i></span>
+            <span @click="setLikes(post.post_id)" v-else style="color: gray">
+                <i class="fa fa-heart" aria-hidden="true"></i>
+            </span>
+            <span>{{post.likes}}</span>
         </div>
     </div>
 

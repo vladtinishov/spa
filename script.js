@@ -90,6 +90,12 @@ let app = new Vue({
                         .then(posts => {
                             this.posts_data.posts_likes = posts.data;
                         })
+                })
+                .then(data => {
+                    axios.post('/posts/get_posts', {'user_id':this.user_data.user_id})
+                            .then(posts => {
+                                this.posts_data.posts = posts.data;
+                            });
                 });
         },
         deleteLikes: function(post_id){
@@ -103,6 +109,13 @@ let app = new Vue({
                         })
                 }
             )
+            .then(data => {
+                axios.post('/posts/get_posts', {'user_id':this.user_data.user_id})
+                        .then(posts => {
+                            this.posts_data.posts = posts.data;
+                        });
+            })
+            
         }
         
     }
