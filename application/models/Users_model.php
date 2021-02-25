@@ -22,4 +22,13 @@ class Users_model extends CI_Model{
                             VALUES (NULL, '$name', '$login', '$password')");
         echo json_encode($result);
     }
+    public function getFollowers($user_id){
+        $result = $this->db->query("SELECT COUNT(users.user_name) FROM users 
+                                    INNER JOIN followers 
+                                    ON 
+                                    followers.user_id = $user_id 
+                                    AND 
+                                    followers.follower_id = users.user_id");
+        echo json_encode($result->result());
+    }
 }

@@ -13,6 +13,7 @@ let app = new Vue({
         user_data: {
             user_name: '',
             user_id: '',
+            followers_count: 0,
         },
         posts_data: {
             show_single_post: false,
@@ -58,7 +59,10 @@ let app = new Vue({
                         axios.post('/posts/get_likes', {'user_id':response.data.user_id})
                             .then(data => {this.posts_data.posts_likes = 
                                 data.data; 
-                            });
+                        });
+                        axios.post('/users/get_followers', {'user_id':response.data.user_id})
+                            .then(data => {console.log(data.data)}
+                        );
                     }
                     else{
                         console.group('Ответ из сервера на запрос о пользователе по введённым данным');
