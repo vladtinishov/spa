@@ -36,6 +36,7 @@ class Posts_model extends CI_Model{
                                     ");
         echo var_dump($result);
     }
+
     public function getLikes($id){
         $result = $this->db->query("SELECT post_id FROM likes WHERE user_id = $id");
         $result_array = [];
@@ -44,6 +45,7 @@ class Posts_model extends CI_Model{
         }
         echo json_encode($result_array);
     }
+
     public function setLike($user_id, $post_id){
         $this->db->query("INSERT INTO likes 
                                     VALUES (
@@ -54,6 +56,7 @@ class Posts_model extends CI_Model{
                         SET likes = likes + 1 
                         WHERE post_id = $post_id");
     }
+
     public function deleteLike($user_id, $post_id){
         $this->db->query("DELETE FROM likes WHERE 
                                     user_id=$user_id AND post_id=$post_id
@@ -61,5 +64,28 @@ class Posts_model extends CI_Model{
         $this->db->query("UPDATE posts 
                         SET likes = likes - 1 
                         WHERE post_id = $post_id");
+    }
+
+    public function getSinglePost($post_id){
+        $posts = $this->db->query("SELECT * FROM posts 
+                                                WHERE post_id = $post_id");
+
+        $users = $this->db->query("SELECT users.user_name, users.user_id FROM `posts`
+                                                INNER JOIN users 
+                                                ON users.user_id = posts.user_id 
+                                                AND posts.post_id = $post_id");
+
+        $comments = $this->db->query("SELECT 
+                                                users.user_name, 
+                                                comments.comment_text 
+                                            FROM `comments` 
+                                            INNER JOIN users 
+                                            ON 
+                                            comments.user_id = users.user_id 
+                                            AND comments.post_id = $post_id");
+        $data['users_data'] = $users->result();
+        $data['posts_data'] = $posts->result();
+        $data['comments_data'] = $comments->result();
+        echo json_encode($data);
     }
 }

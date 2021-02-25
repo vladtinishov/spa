@@ -29,3 +29,11 @@ body{
 .btn-primary{
     background: rgb(65, 67, 75);
 }
+
+.single_post{
+    border: 1px solid black;
+    /* padding: 15px; */
+    margin-top: 15px;
+    background: #343a40!important;
+    color: white;
+}

@@ -13,9 +13,11 @@ let app = new Vue({
             user_id: '',
         },
         posts_data: {
+            show_single_post: false,
             posts_show: false,
             posts: '',
             posts_likes: '',
+            single_post: [],
         }
     },
     methods:{
@@ -28,6 +30,7 @@ let app = new Vue({
         getSignUpForm: function(){
             this.form.form_show = true;
         },
+
         sendAutorizationData: function(){
             data = {login: document.getElementById('login').value, 
                     password: document.getElementById('password').value}
@@ -57,7 +60,6 @@ let app = new Vue({
                         axios.post('/posts/get_likes', {'user_id':response.data.user_id})
                             .then(data => {this.posts_data.posts_likes = 
                                 data.data; 
-                                console.log(this.posts_data.posts_likes)
                             });
                     }
                     else{
@@ -68,11 +70,8 @@ let app = new Vue({
                     }
                   } 
               )
-            .then(
-                // axios.post('/posts/get_likes', {'user_id':this.user_data.user_id})
-                // .then(data => {this.posts_data.posts_likes = data.data; console.log(this.posts_data.posts_likes)})
-            );
         },
+
         setPosts: function(){
 
             axios.post('/posts/set_posts', 
@@ -86,6 +85,7 @@ let app = new Vue({
                         });
             })
         },
+
         setLikes: function(post_id){
             axios.post('/posts/set_like',{
                 'user_id':this.user_data.user_id,
@@ -103,6 +103,7 @@ let app = new Vue({
                             });
                 });
         },
+        
         deleteLikes: function(post_id){
             axios.post('/posts/delete_like',{
                 'user_id':this.user_data.user_id,
@@ -121,6 +122,16 @@ let app = new Vue({
                         });
             })
             
+        },
+
+        getSinglePost: function(post_id){
+            this.posts_data.posts_show = false;
+            this.posts_data.show_single_post = true;
+
+            axios.get('/posts/get_single_post', {params: {'post_id': post_id}})
+            .then(data => {
+                this.posts_data.single_post = data.data;
+            });
         }
         
     }

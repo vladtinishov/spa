@@ -64,8 +64,26 @@
             <span @click="setLikes(post.post_id)" v-else style="color: gray">
                 <i class="fa fa-heart" aria-hidden="true"></i>
             </span>
-            <span>{{post.likes}}</span>
+            <span>{{post.likes}}</span><br>
+            <span @click="getSinglePost(post.post_id)">Развернуть</span>
         </div>
+    </div>
+
+    <div v-show="posts_data.show_single_post" class="container single_post">
+    <br>
+        <div class="" v-for="user_data in posts_data.single_post.users_data">
+            <span class="badge badge-secondary">{{user_data.user_name}}</span>
+        </div> 
+        <div class="" v-for="post_data in posts_data.single_post.posts_data">
+            {{post_data.content}}
+        </div> 
+        <hr>
+        <div class="" v-for="comment_data in posts_data.single_post.comments_data">
+            <span class="badge badge-secondary">
+                {{comment_data.user_name}} прокоментировал:
+            </span> {{comment_data.comment_text}}
+        </div> 
+        <br>
     </div>
 
 
