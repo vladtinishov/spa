@@ -4,9 +4,11 @@ let app = new Vue({
     data:{
         posts_data: [],
         form: {
-            form_show: false,
+            form_show: true,
             form_getter: true,
             incorrect_data: false,
+            reg_incorrect_data: false,
+            okey: false,
         },
         user_data: {
             user_name: '',
@@ -25,10 +27,6 @@ let app = new Vue({
             console.group('Данные из таблицы Posts')
             console.table(this.posts_data);
             console.groupEnd();
-        },
-
-        getSignUpForm: function(){
-            this.form.form_show = true;
         },
 
         sendAutorizationData: function(){
@@ -152,6 +150,23 @@ let app = new Vue({
         closeSinglePost: function(){
             this.posts_data.posts_show = true;
             this.posts_data.show_single_post = false;
+        },
+
+        sendRegistrationData: function(){
+            reg_name = document.getElementById('reg_name').value;
+            password = document.getElementById('reg_password').value;
+            password_again = document.getElementById('reg_password_again').value;
+            login = document.getElementById('reg_login').value;
+
+            if(password == password_again){
+                axios.post('/users/set_reg_data', {'reg_name': reg_name,
+                                                'password': password,
+                                                'login': login
+                                            })
+                .then(data => {
+                    if(data.data) this.form.okey = true
+                })
+            }
         }
         
     }

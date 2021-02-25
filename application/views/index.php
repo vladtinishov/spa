@@ -17,8 +17,7 @@
         <a class="navbar-brand" href="#">BLOG)</a>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <span class="nav-link" v-if="form.form_getter" @click="getSignUpForm">Войти</span>
-                <span class="nav-link" v-else >{{user_data.user_name}}</span>
+                <span class="nav-link" v-if="!this.form.form_show" >{{user_data.user_name}}</span>
             </li>
             <li class="nav-item">
                 <span class="nav-link">Подписчики</span>
@@ -42,8 +41,30 @@
                 <input type="password" class="form-control" id="password" placeholder="Пароль">
             </div>
             <p @click="sendAutorizationData" class="btn btn-primary">Ввести</p>
-            <p>Не зарегистрированы? Зарегистрироваться</p>
             <p v-show="form.incorrect_data" style="color: red">Некоректные данные</p>
+        </form>
+        <p>Не зарегистрированы?</p>
+        <form>
+            <h3>Форма регистрация</h3>
+            <div class="form-group">
+                <label for="reg_name">Имя</label>
+                <input type="text" class="form-control" id="reg_name" placeholder="Имя">
+            </div>
+            <div class="form-group">
+                <label for="reg_login">Логин</label>
+                <input type="text" class="form-control" id="reg_login" placeholder="Логин">
+            </div>
+            <div class="form-group">
+                <label for="reg_password">Пароль</label>
+                <input type="text" class="form-control" id="reg_password" placeholder="Пароль">
+            </div>
+            <div class="form-group">
+                <label for="reg_password_again">Пароль</label>
+                <input type="text" class="form-control" id="reg_password_again" placeholder="Пароль ещё раз">
+            </div>
+            <p @click="sendRegistrationData" class="btn btn-primary">Ввести</p>
+            <p v-show="form.reg_incorrect_data" style="color: red">Неверные данные</p>
+            <p v-show="form.okey">Регистрация прошла успешно</p>
         </form>
     </div>
 
@@ -70,10 +91,10 @@
     </div>
 
     <div v-show="posts_data.show_single_post" class="container single_post">
-        <span @click="closeSinglePost">Закрыть</span>
-        <div class="" v-for="user_data in posts_data.single_post.users_data">
+        <span @click="closeSinglePost"><i class="fa fa-times" aria-hidden="true"></i></span>
+        <span class="" v-for="user_data in posts_data.single_post.users_data">
             <span class="badge badge-secondary">{{user_data.user_name}}</span>
-        </div> 
+        </span> 
         <div class="" v-for="post_data in posts_data.single_post.posts_data">
             {{post_data.content}}
             <hr>

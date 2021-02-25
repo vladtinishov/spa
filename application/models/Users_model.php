@@ -17,4 +17,9 @@ class Users_model extends CI_Model{
         $data = $result->row_array();
         echo json_encode($data);
     }
+    public function setRegData($name, $login, $password){
+        $result = $this->db->query("INSERT INTO users 
+                            VALUES (NULL, '$name', '$login', '$password')");
+        echo json_encode($result);
+    }
 }

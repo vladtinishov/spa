@@ -13,4 +13,11 @@ class Users extends CI_Controller{
         $this->users_model->getUsers($data);
 
     }
+    public function set_reg_data(){
+        $_POST = json_decode(file_get_contents('php://input'), true);
+        $name = $_POST['reg_name'];
+        $login = $_POST['login'];
+        $password = $_POST['password'];
+        $this->users_model->setRegData($name, $login, $password);
+    }
 }
