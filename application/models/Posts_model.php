@@ -5,15 +5,6 @@ class Posts_model extends CI_Model{
     {
         $this->load->database();
     }
-    public function setPost(){
-        $data = array(
-            'user_id'=> $_POST['user_id'],
-            'title'=>  $_POST['title'],
-            'content'=>  $_POST['content'],
-            'likes' => 0
-        );
-        $this->db->insert('posts', $data);
-    }
     public function getPosts($id){
         $result = $this->db->query("SELECT 
                                     likes, post_id, post_date, content, users.user_name 

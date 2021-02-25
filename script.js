@@ -54,6 +54,11 @@ let app = new Vue({
 
                             this.posts_data.posts = posts.data;
                         });
+                        axios.post('/posts/get_likes', {'user_id':response.data.user_id})
+                            .then(data => {this.posts_data.posts_likes = 
+                                data.data; 
+                                console.log(this.posts_data.posts_likes)
+                            });
                     }
                     else{
                         console.group('Ответ из сервера на запрос о пользователе по введённым данным');
@@ -64,8 +69,8 @@ let app = new Vue({
                   } 
               )
             .then(
-                axios.post('/posts/get_likes', {'user_id':1})
-                .then(data => {this.posts_data.posts_likes = data.data; console.log(this.posts_data.posts_likes)})
+                // axios.post('/posts/get_likes', {'user_id':this.user_data.user_id})
+                // .then(data => {this.posts_data.posts_likes = data.data; console.log(this.posts_data.posts_likes)})
             );
         },
         setPosts: function(){
