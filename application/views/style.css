@@ -15,12 +15,13 @@ body{
 
 
 /* посты */
-.post, .createPost{
+.post, .createPost, .single_post{
     border: 1px solid black;
     padding: 15px;
-    margin: 15px 5px;
+    margin-top: 15px;
     background: #343a40!important;
     color: white;
+    border-radius: 5px;
 }
 .postTextInput{
     margin-top: 10px;
@@ -30,10 +31,3 @@ body{
     background: rgb(65, 67, 75);
 }
 
-.single_post{
-    border: 1px solid black;
-    /* padding: 15px; */
-    margin-top: 15px;
-    background: #343a40!important;
-    color: white;
-}

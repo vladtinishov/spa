@@ -132,6 +132,26 @@ let app = new Vue({
             .then(data => {
                 this.posts_data.single_post = data.data;
             });
+        },
+
+        setComment: function(post_id){
+            text = document.getElementById("createComment").value;
+            axios.post('/posts/set_comment', {
+                                            'text': text, 
+                                            'post_id': post_id, 
+                                            'user_id': this.user_data.user_id
+                                        })
+            .then(
+                axios.get('/posts/get_single_post', {params: {'post_id': post_id}})
+                .then(data => {
+                    this.posts_data.single_post = data.data;
+                })
+            );
+        },
+
+        closeSinglePost: function(){
+            this.posts_data.posts_show = true;
+            this.posts_data.show_single_post = false;
         }
         
     }

@@ -33,9 +33,14 @@ class Posts extends CI_Controller{
         $post_id = $_POST['post_id'];
         $this->posts_model->deleteLike($user_id, $post_id);
     }
-
     public function get_single_post(){
         $post_id = $_GET['post_id'];
         $this->posts_model->getSinglePost($post_id);
+    }
+    public function set_comment(){
+        $comment_text = $_POST['text'];
+        $post_id = $_POST['post_id'];
+        $user_id = $_POST['user_id'];
+        $this->posts_model->setComment($post_id, $user_id, $comment_text);
     }
 }

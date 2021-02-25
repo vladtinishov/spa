@@ -88,4 +88,9 @@ class Posts_model extends CI_Model{
         $data['comments_data'] = $comments->result();
         echo json_encode($data);
     }
+    
+    public function setComment($post_id, $user_id, $text){
+        $this->db->query("INSERT INTO comments 
+                            VALUES ($post_id, $user_id, '$text', NULL)");
+    }
 }
