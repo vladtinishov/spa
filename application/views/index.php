@@ -113,10 +113,13 @@
     </div>
 
     <div v-show="user_data.show_searched_data" class="searched_users container">
+        <br>
+        <span style="color: white" @click="closeSinglePost">
+            <i class="fa fa-times" aria-hidden="true"></i> Закрыть</span>
         <div class="single_post" v-for="data in user_data.searched_users">
             {{data.user_name}}
             <div v-if="user_data.followers_data.includes(data.user_id)">Подписан</div>
-            <div v-else>Подписаться</div>
+            <div @click="setFollower(data.user_id)" v-else>Подписаться</div>
             <!-- <button @click="setFollower(data.user_id)" class="btn btn-primary">Подписаться</button> -->
         </div>
     </div>

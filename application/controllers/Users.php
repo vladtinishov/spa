@@ -30,4 +30,9 @@ class Users extends CI_Controller{
         $user_id = $_POST['user_id'];
         $this->users_model->getFollowedUsers($user_id);
     }
+    public function set_follower(){
+        $user_id = $_POST['user_id'];
+        $follower_id = $_POST['follower_id'];
+        $this->users_model->setFollower($user_id, $follower_id);
+    }
 }

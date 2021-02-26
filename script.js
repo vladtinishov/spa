@@ -187,9 +187,14 @@ let app = new Vue({
                 .then(data => this.user_data.followers_data = data.data)
             );
         },
-        // setFollower: function(user_id){
-        //     axios.post('/users/set_follower', {'user_id':user_id});
-        // }
+        setFollower: function(follower_id){
+            axios.post('/users/set_follower', {'user_id':this.user_data.user_id, 'follower_id':follower_id})
+            .then(data => console.log(data.data)).then(this.getSearchedUsers);
+        },
+        closeSearchedUsers(){
+            this.user_data.show_searched_data = false;
+            this.posts_data.posts_show = true;
+        }
     }
 })
 

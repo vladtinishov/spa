@@ -43,4 +43,8 @@ class Users_model extends CI_Model{
         }
         echo json_encode($result_array);
     }
+    public function setFollower($user_id, $follower_id){
+        $log = $this->db->query("INSERT INTO followers VALUES (NULL, $user_id, $follower_id)");
+        echo json_encode($log);
+    }
 }
