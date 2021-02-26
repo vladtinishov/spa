@@ -114,7 +114,7 @@
 
     <div v-show="user_data.show_searched_data" class="searched_users container">
         <br>
-        <span style="color: white" @click="closeSinglePost">
+        <span style="color: white" @click="closeSearchedUsers">
             <i class="fa fa-times" aria-hidden="true"></i> Закрыть</span>
         <div class="single_post" v-for="data in user_data.searched_users">
             {{data.user_name}}

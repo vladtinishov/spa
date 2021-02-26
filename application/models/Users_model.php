@@ -23,12 +23,7 @@ class Users_model extends CI_Model{
         echo json_encode($result);
     }
     public function getFollowers($user_id){
-        $result = $this->db->query("SELECT COUNT(users.user_name) AS count_users FROM users 
-                                    INNER JOIN followers 
-                                    ON 
-                                    followers.user_id = $user_id 
-                                    AND 
-                                    followers.follower_id = users.user_id");
+        $result = $this->db->query("SELECT COUNT(user_id) AS count_users FROM followers WHERE follower_id=$user_id");
         echo json_encode($result->result());
     }
     public function getSearchedUsers($user_name){
