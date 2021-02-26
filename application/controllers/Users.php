@@ -26,4 +26,8 @@ class Users extends CI_Controller{
         $user_name = $_POST['user_name'];
         $this->users_model->getSearchedUsers($user_name);
     }
+    public function get_followed_users(){
+        $user_id = $_POST['user_id'];
+        $this->users_model->getFollowedUsers($user_id);
+    }
 }

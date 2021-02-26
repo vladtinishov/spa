@@ -32,7 +32,15 @@ class Users_model extends CI_Model{
         echo json_encode($result->result());
     }
     public function getSearchedUsers($user_name){
-        $result = $this->db->query("SELECT users.user_id, users.user_name FROM users WHERE user_name = '$user_name'");
-        echo json_encode($result->result());
+        $users = $this->db->query("SELECT users.user_id, users.user_name FROM users WHERE user_name = '$user_name'");
+        echo json_encode($users->result());
+    }
+    public function getFollowedUsers($user_id){
+        $follow = $this->db->query("SELECT follower_id FROM `followers` WHERE followers.user_id = $user_id");
+        $result_array = [];
+        foreach($follow->result() as $key => $data){
+             array_push($result_array, $data->follower_id);
+        }
+        echo json_encode($result_array);
     }
 }

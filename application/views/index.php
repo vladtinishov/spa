@@ -24,9 +24,9 @@
                  {{user_data.followers_count}}</span>
             </li>
         </ul>
-        <form class="form-inline" action="/action_page.php">
+        <form v-show="posts_data.posts_show" class="form-inline">
         <input id="searched_user_name" class="form-control mr-sm-2" type="text" placeholder="Введите имя">
-        <p @click="getSearchedUsers" class="btn btn-success">Искать</p>
+        <span @click="getSearchedUsers" class="btn btn-primary">Искать</span>
         </form>
     </nav>
 
@@ -112,6 +112,14 @@
       
     </div>
 
+    <div v-show="user_data.show_searched_data" class="searched_users container">
+        <div class="single_post" v-for="data in user_data.searched_users">
+            {{data.user_name}}
+            <div v-if="user_data.followers_data.includes(data.user_id)">Подписан</div>
+            <div v-else>Подписаться</div>
+            <!-- <button @click="setFollower(data.user_id)" class="btn btn-primary">Подписаться</button> -->
+        </div>
+    </div>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

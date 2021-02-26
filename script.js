@@ -11,9 +11,12 @@ let app = new Vue({
             okey: false,
         },
         user_data: {
+            show_searched_data: false,
             user_name: '',
             user_id: '',
             followers_count: 0,
+            searched_users: '',
+            followers_data: 0,
         },
         posts_data: {
             show_single_post: false,
@@ -174,10 +177,19 @@ let app = new Vue({
         },
         
         getSearchedUsers: function(){
+            this.user_data.show_searched_data = true;
+            this.posts_data.posts_show = false;
             user_name = document.getElementById('searched_user_name').value;
             axios.post('/users/get_searched_users', {'user_name':user_name})
-            .then(data => console.log(data.data));
-        }
+            .then(data => this.user_data.searched_users = data.data)
+            .then(
+                axios.post('/users/get_followed_users',{'user_id':this.user_data.user_id})
+                .then(data => this.user_data.followers_data = data.data)
+            );
+        },
+        // setFollower: function(user_id){
+        //     axios.post('/users/set_follower', {'user_id':user_id});
+        // }
     }
 })
 
