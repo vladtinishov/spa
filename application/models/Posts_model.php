@@ -7,7 +7,7 @@ class Posts_model extends CI_Model{
     }
     public function getPosts($id){
         $result = $this->db->query("SELECT 
-                                    likes, post_id, post_date, content, users.user_name 
+                                    likes, post_id, post_date, content, users.user_name, posts.user_id 
                                     FROM posts 
 
                                     INNER JOIN followers 
@@ -92,5 +92,11 @@ class Posts_model extends CI_Model{
     public function setComment($post_id, $user_id, $text){
         $this->db->query("INSERT INTO comments 
                             VALUES ($post_id, $user_id, '$text', NULL)");
+    }
+
+    public function deletePost($post_id){
+        $this->db->query("DELETE FROM likes WHERE post_id = $post_id");
+        $this->db->query("DELETE FROM comments WHERE post_id = $post_id");
+        $this->db->query("DELETE FROM posts WHERE post_id = $post_id");
     }
 }

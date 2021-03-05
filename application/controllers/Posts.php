@@ -43,4 +43,8 @@ class Posts extends CI_Controller{
         $user_id = $_POST['user_id'];
         $this->posts_model->setComment($post_id, $user_id, $comment_text);
     }
+    public function delete_post(){
+        $post_id = $_POST['post_id'];
+        $this->posts_model->deletePost($post_id);
+    }
 }

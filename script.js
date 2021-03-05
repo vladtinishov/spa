@@ -24,57 +24,59 @@ let app = new Vue({
             posts: '',
             posts_likes: '',
             single_post: [],
+            users_posts_show: false,
         }
     },
     methods:{
-        getData: function(){
-            console.group('Данные из таблицы Posts')
-            console.table(this.posts_data);
-            console.groupEnd();
-        },
-
-        sendAutorizationData: function(){
-            data = {login: document.getElementById('login').value, 
-                    password: document.getElementById('password').value}
-            axios.post('/users/getusers', data)
-              .then(response => {
-                    if(response.data != null){
-
-                        console.group('Ответ из сервера на запрос о пользователе по введённым данным');
-                        console.table(response.data);
-                        console.groupEnd();
-
-                        this.user_data.user_name = response.data.user_name;
-                        this.user_data.user_id = response.data.user_id;
-                        this.form.form_show = false;
-                        this.form.form_getter = false;
-
-                        this.posts_data.posts_show = true;
-
-                        axios.post('/posts/get_posts', {'user_id':response.data.user_id})
+        getPosts: function(id){
+            axios.post('/posts/get_posts', {'user_id':id})
                         .then(posts => {
-                            console.group('Все посты этого пользователя');
-                            console.table(posts.data);
-                            console.groupEnd();
-
                             this.posts_data.posts = posts.data;
                         });
-                        axios.post('/posts/get_likes', {'user_id':response.data.user_id})
-                            .then(data => {this.posts_data.posts_likes = 
-                                data.data; 
-                        });
-                        axios.post('/users/get_followers', {'user_id':response.data.user_id})
-                            .then(data => {this.user_data.followers_count = data.data[0].count_users}
-                        );
+        },
+        getLikes: function(id){
+            axios.post('/posts/get_likes', {'user_id':id})
+                .then(data => {this.posts_data.posts_likes = 
+                    data.data; 
+            });
+        },
+        getFollowers: function(id){
+            axios.post('/users/get_followers', {'user_id':id})
+                .then(data => {this.user_data.followers_count = data.data[0].count_users}
+            );
+        },
+
+        // авторизация
+        sendAutorizationData: function(){
+            // получение данных с формы входа
+            data = {login: document.getElementById('login').value, 
+                    password: document.getElementById('password').value}
+
+            axios.post('/users/get_users', data)
+              .then(response => {
+                    if(response.data != null){
+                        let id = response.data.user_id
+
+                        this.user_data.user_name = response.data.user_name;
+                        this.user_data.user_id = id;
+                        this.form.form_show = false;
+                        this.form.form_getter = false;
+                        this.posts_data.posts_show = true;
+
+                        this.getPosts(id);
+                        this.getLikes(id);
+                        this.getFollowers(id);
+
                     }
                     else{
-                        console.group('Ответ из сервера на запрос о пользователе по введённым данным');
-                        console.table('Введённые данные некоректны');
-                        console.groupEnd();
                         this.form.incorrect_data = true;
                     }
                   } 
               )
+        },
+
+        getUserKey: function(id){
+            return id == this.user_data.user_id;
         },
 
         setPosts: function(){
@@ -83,48 +85,28 @@ let app = new Vue({
                         {'user_id': this.user_data.user_id, 
                         'content': document.getElementById('createText').value
                         })
-            .then(data => {
-                axios.post('/posts/get_posts', {'user_id':this.user_data.user_id})
-                        .then(posts => {
-                            this.posts_data.posts = posts.data;
-                        });
-            })
+            .then(()=>this.getPosts(this.user_data.user_id))
         },
 
         setLikes: function(post_id){
             axios.post('/posts/set_like',{
                 'user_id':this.user_data.user_id,
                 'post_id':post_id
-            }).then(() =>{
-                axios.post('/posts/get_likes', {'user_id':this.user_data.user_id})
-                        .then(posts => {
-                            this.posts_data.posts_likes = posts.data;
-                        })
-                })
-                .then(data => {
-                    axios.post('/posts/get_posts', {'user_id':this.user_data.user_id})
-                            .then(posts => {
-                                this.posts_data.posts = posts.data;
-                            });
-                });
+            }).then(() => {
+                this.getLikes(this.user_data.user_id);
+                this.getPosts(this.user_data.user_id);
+            })
+                
         },
         
         deleteLikes: function(post_id){
             axios.post('/posts/delete_like',{
                 'user_id':this.user_data.user_id,
                 'post_id':post_id
-            }).then(() =>{
-                axios.post('/posts/get_likes', {'user_id':this.user_data.user_id})
-                        .then(posts => {
-                            this.posts_data.posts_likes = posts.data;
-                        })
-                }
-            )
-            .then(data => {
-                axios.post('/posts/get_posts', {'user_id':this.user_data.user_id})
-                        .then(posts => {
-                            this.posts_data.posts = posts.data;
-                        });
+            }).then(() => this.getLikes(this.user_data.user_id))
+            .then(() => {
+                this.getLikes(this.user_data.user_id);
+                this.getPosts(this.user_data.user_id);
             })
             
         },
@@ -166,7 +148,7 @@ let app = new Vue({
             login = document.getElementById('reg_login').value;
 
             if(password == password_again){
-                axios.post('/users/set_reg_data', {'reg_name': reg_name,
+                axios.post('/users/set_reg_data', {'username': reg_name,
                                                 'password': password,
                                                 'login': login
                                             })
@@ -191,9 +173,23 @@ let app = new Vue({
             axios.post('/users/set_follower', {'user_id':this.user_data.user_id, 'follower_id':follower_id})
             .then(data => console.log(data.data)).then(this.getSearchedUsers);
         },
-        closeSearchedUsers(){
+        closeSearchedUsers: function(){
             this.user_data.show_searched_data = false;
             this.posts_data.posts_show = true;
+        }, 
+
+        openUserPage: function(){
+            this.posts_data.users_posts_show = true;
+            this.posts_data.posts_show = false;
+        },
+        closeUsersPage: function(){
+            this.posts_data.users_posts_show = false;
+            this.posts_data.posts_show = true;
+        },
+
+        deletePost: function(id){
+            axios.post('/posts/delete_post', {post_id: id})
+            .then(this.getPosts(this.user_data.user_id))
         }
     }
 })

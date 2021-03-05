@@ -17,7 +17,7 @@
         <a class="navbar-brand" href="#">BLOG)</a>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <span class="nav-link" v-if="!this.form.form_show" >{{user_data.user_name}}</span>
+                <span @click="openUserPage" class="nav-link" v-if="!this.form.form_show" >{{user_data.user_name}}</span>
             </li>
             <li class="nav-item">
                 <span class="nav-link"><i class="fa fa-user-o" aria-hidden="true"></i>
@@ -88,6 +88,26 @@
             </span>
             <span>{{post.likes}}</span><br>
             <span @click="getSinglePost(post.post_id)">Развернуть</span>
+        </div>
+    </div>
+
+    <div v-show="posts_data.users_posts_show" class="container postsShow">
+    <br>
+        <span @click="closeUsersPage" style="color: white" ><i class="fa fa-times" aria-hidden="true"></i> Закрыть</span>
+        <div class="post" v-show="getUserKey(post.user_id)" v-for="post in posts_data.posts">
+            <span class="badge badge-secondary">{{post.user_name}} | {{post.post_date}}</span>
+            <p>{{post.content}}</p>
+            <span 
+                @click="deleteLikes(post.post_id)" 
+                v-if="posts_data.posts_likes.includes(post.post_id)"
+                style="color: red"><i class="fa fa-heart" aria-hidden="true"></i></span>
+            <span @click="setLikes(post.post_id)" v-else style="color: gray">
+                <i class="fa fa-heart" aria-hidden="true"></i>
+            </span>
+            <span>{{post.likes}}</span><br>
+            <span @click="getSinglePost(post.post_id)">Развернуть</span>
+
+            <span @click="deletePost(post.post_id)">Удалить</span>
         </div>
     </div>
 
